@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <h3 class="bg-primary text-white p3">
+                [{{getName()}}] To Do List
+            </h3>
+            <div class="input-group">
+                <input type="text" #addText class="form-control" (keyup.enter)="addBtn(addText.value); addText.value=''">
+                <div class="input-group-append">
+                    <button class="btn btn-primary"  (click)="addBtn(addText.value); addText.value='';">Add</button>
+                </div>
+            </div>
+            <div class="custom-control custom-checkbox my-3">
+                <input type="checkbox" class="custom-control-input" id="displayAll" [(ngModel)]="isDisplayAll">
+                <label class="custom-control-label" for="displayAll">Display All</label>
+            </div>  
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                        <th>Action(Yes,No)</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of getItems() let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{item._description}}</td>
+                        <td style="text-align: center;">
+                            <input type="checkbox" [(ngModel)]="item._action">
+                        </td>
+                        <td style="text-align: center;" [ngSwitch]="item._action">
+                            <span *ngSwitchCase="true">
+                                Yes
+                            </span>
+                            <span *ngSwitchCase="false">
+                                No
+                            </span>
+                        </td>
+                        <td style="text-align: center;">
+                            <span (click)="deleteItem(i)"><img src="https://img.icons8.com/flat_round/64/000000/delete-sign.png" height="20" width="20"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
